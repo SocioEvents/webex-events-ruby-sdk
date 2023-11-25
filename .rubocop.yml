@@ -10,3 +10,5 @@ Style/StringLiterals:
 
 Style/FrozenStringLiteralComment:
   Enabled: true
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: space

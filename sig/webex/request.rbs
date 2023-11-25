@@ -1,5 +1,6 @@
 module Webex
   class Request
+    @headers: Hash[String, String]
     @query: String
     @variables: Hash[void, void]
     @operation_name: String
@@ -10,7 +11,7 @@ module Webex
 
     def self.url: -> String
 
-    def initialize: (query: String, variables: Hash[void, void], operation_name: String) -> void
+    def initialize: (query: String, variables: Hash[void, void], operation_name: String, headers: Hash[String, String]) -> void
 
     def execute: () -> Hash[String, void]
 

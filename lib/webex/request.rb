@@ -2,10 +2,11 @@
 
 module Webex
   class Request
-    def initialize(query:, variables:, operation_name:)
+    def initialize(query:, variables:, operation_name:, headers: {})
       @query = query
       @variables = variables
       @operation_name = operation_name
+      @headers = headers
       @access_token = Webex::Events::Config.access_token
       @connection = self.class.connection
     end
@@ -19,8 +20,13 @@ module Webex
             variables: @variables,
             operation_name: @operation_name
           }.to_json
+
+          request.headers.merge!(@headers)
           request.headers['Content-Type'] = 'application/json'
           request.headers['Authorization'] = 'Bearer %s' % @access_token
+          request.headers['X-Sdk-Name'] = 'Ruby SDK'
+          request.headers['X-Sdk-Version'] = Webex::Events::VERSION
+          request.headers['X-Sdk-Lang-Version'] = RUBY_VERSION
         end
       end
 

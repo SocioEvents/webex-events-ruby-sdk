@@ -44,7 +44,8 @@ gem 'webex-events'
         }
     }
   GRAPQH
-  Webex::Client.query(query: query, variables: { first: 20 }, operation_name: 'EventsConnection')
+  response = Webex::Client.query(query: query, variables: { first: 20 }, operation_name: 'EventsConnection', headers: {})
+  event = response.body["data"]["eventsConnection"]["edges"][0]
 ```
 TODO:
 
