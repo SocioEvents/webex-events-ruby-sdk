@@ -7,3 +7,6 @@ inherit_gem:
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
+
+Style/FrozenStringLiteralComment:
+  Enabled: true

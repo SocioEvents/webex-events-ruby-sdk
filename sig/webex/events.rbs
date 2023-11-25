@@ -1,6 +1,11 @@
 module Webex
   module Events
     VERSION: String
-    # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+    class Config
+      attr_accessor self.access_token: String
+
+      def self.configure: (Proc) -> void
+    end
   end
 end

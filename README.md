@@ -3,9 +3,49 @@
 TODO: 
 ## Installation
 
-TODO:
-## Usage
+Via command line:
 
+```ruby
+gem install webex-events
+```
+
+In your ruby script:
+
+```ruby
+require 'webex-events'
+```
+
+In your Gemfile:
+
+```ruby
+gem 'webex-events'
+```
+
+## Usage
+```ruby
+  Webex::Events::Config.configure do |config|
+    config.access_token = '<access_token>' # sk_live_ab34... or sk_test_cda1...
+  end
+
+  query = <<-GRAPQH
+    query EventsConnection($first: Int) {
+        eventsConnection(first: $first){
+            edges{
+                cursor
+                node{
+                    id
+                    name
+                    groups{
+                        id
+                        name
+                    }
+                }
+            }
+        }
+    }
+  GRAPQH
+  Webex::Client.query(query: query, variables: { first: 20 }, operation_name: 'EventsConnection')
+```
 TODO:
 
 ## Development
