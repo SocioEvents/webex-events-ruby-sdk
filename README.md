@@ -1,4 +1,4 @@
-# Webex::Events
+# Webex Events Api
 
 TODO: 
 ## Installation
@@ -38,7 +38,7 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Webex::Events project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/SocioEvents/webex-events-ruby-sdk/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the Webex Events API project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/SocioEvents/webex-events-ruby-sdk/blob/main/CODE_OF_CONDUCT.md).
 
 
 [2]: http://gun.io/blog/how-to-github-fork-branch-and-pull-request
