@@ -1,0 +1,9 @@
+require:
+  - standard
+#  - rubocop-rspec
+
+inherit_gem:
+  standard: config/base.yml
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes

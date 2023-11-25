@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "events/version"
+require_relative 'events/version'
 
 module Webex
   module Events
