@@ -66,8 +66,6 @@ module Webex
 
         if extensions['availableCost'].to_i < 1
           raise SecondBasedQuotaIsReachedError.new(response)
-        else
-          raise QueryComplexityIsTooHighError.new response
         end
       when 500
         raise ServerError.new(response)

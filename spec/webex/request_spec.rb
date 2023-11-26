@@ -40,6 +40,15 @@ RSpec.describe Webex::Request do
     }
   end
 
+  def do_request
+    described_class.new(
+      query: gql_query,
+      variables: variables,
+      operation_name: operation_name,
+      headers: { 'Idempotency-Key' => idempotency_key }
+    ).execute
+  end
+
   context 'with status code 200' do
     it 'returns the payload' do
       data = {
@@ -77,12 +86,7 @@ RSpec.describe Webex::Request do
                .to_return(body: data, status: 400)
 
       expect do
-        described_class.new(
-          query: gql_query,
-          variables: variables,
-          operation_name: operation_name,
-          headers: { 'Idempotency-Key' => idempotency_key }
-        ).execute
+        do_request
       end.to raise_error(Webex::InvalidAccessTokenError)
       expect(stub).to have_been_requested
     end
@@ -101,12 +105,7 @@ RSpec.describe Webex::Request do
                .to_return(body: data, status: 400)
 
       expect do
-        described_class.new(
-          query: gql_query,
-          variables: variables,
-          operation_name: operation_name,
-          headers: { 'Idempotency-Key' => idempotency_key }
-        ).execute
+        do_request
       end.to raise_error(Webex::AccessTokenIsExpiredError)
       expect(stub).to have_been_requested
     end
@@ -125,13 +124,253 @@ RSpec.describe Webex::Request do
                .to_return(body: data, status: 400)
 
       expect do
-        described_class.new(
-          query: gql_query,
-          variables: variables,
-          operation_name: operation_name,
-          headers: { 'Idempotency-Key' => idempotency_key }
-        ).execute
+        do_request
       end.to raise_error(Webex::BadRequestError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 401' do
+    it 'raises AuthenticationRequiredError exception' do
+      data = {
+        message: 'Access Token is required',
+        extensions: {
+          code: :TOKEN_IS_REQUIRED
+        }
+      }.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 401)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::AuthenticationRequiredError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 403' do
+    it 'raises AuthorizationFailedError exception' do
+      data = {
+        message: 'User does not have access',
+        extensions: {
+          code: :UNAUTHORIZED
+        }
+      }.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 403)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::AuthorizationFailedError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 404' do
+    it 'raises ResourceNotFoundError exception' do
+      data = {
+        message: 'Not found',
+        extensions: {
+          code: :RECORD_NOT_FOUND
+        }
+      }.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 404)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::ResourceNotFoundError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 408' do
+    it 'raises RequestTimeoutError exception' do
+      data = {}.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 408)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::RequestTimeoutError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 413' do
+    it 'raises QueryComplexityIsTooHighError exception' do
+      data = {
+        message: 'Graphql query is too complex',
+        extensions: {
+          code: :QUERY_TOO_COMPLEX
+        }
+      }.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 413)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::QueryComplexityIsTooHighError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 422' do
+    it 'raises UnprocessableEntityError exception' do
+      data = {
+        message: 'Form is invalid',
+        extensions: {
+          code: :RECORD_INVALID
+        }
+      }.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 422)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::UnprocessableEntityError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 429' do
+    it 'raises DailyQuotaIsReachedError exception' do
+      data = {
+        message: 'You reached your quota',
+        extensions: {
+          code: :MAX_COST_EXCEEDED,
+          cost: 45,
+          availableCost: 5,
+          threshold: 50,
+          dailyThreshold: 200,
+          dailyAvailableCost: 0
+        }
+      }.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 429)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::DailyQuotaIsReachedError)
+      expect(stub).to have_been_requested
+    end
+
+    it 'raises SecondBasedQuotaIsReachedError exception' do
+      data = {
+        message: 'You reached your quota',
+        extensions: {
+          code: :MAX_COST_EXCEEDED,
+          cost: 51,
+          availableCost: 0,
+          threshold: 50,
+          dailyThreshold: 200,
+          dailyAvailableCost: 190
+        }
+      }.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 429)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::SecondBasedQuotaIsReachedError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 500' do
+    it 'raises ServerError exception' do
+      data = {
+        message: 'Server Error',
+        extensions: {
+          code: :SERVER_ERROR,
+          referenceId: SecureRandom.uuid
+        }
+      }.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 500)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::ServerError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 502' do
+    it 'raises BadGatewayError exception' do
+      data = {}.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 502)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::BadGatewayError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 503' do
+    it 'raises ServiceUnavailableError exception' do
+      data = {}.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 503)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::ServiceUnavailableError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 504' do
+    it 'raises GatewayTimeoutError exception' do
+      data = {}.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 504)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::GatewayTimeoutError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 599' do
+    it 'raises ServerError exception' do
+      data = {}.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 599)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::ServerError)
+      expect(stub).to have_been_requested
+    end
+  end
+
+  context 'when status code is 499' do
+    it 'raises ClientError exception' do
+      data = {}.to_json
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: data, status: 499)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::ClientError)
       expect(stub).to have_been_requested
     end
   end
