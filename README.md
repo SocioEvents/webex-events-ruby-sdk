@@ -21,12 +21,15 @@ In your Gemfile:
 gem 'webex-events'
 ```
 
-## Usage
+## Configuration
 ```ruby
   Webex::Events::Config.configure do |config|
     config.access_token = '<access_token>' # sk_live_ab34... or sk_test_cda1...
   end
+```
 
+## Usage
+```ruby
   query = <<-GRAPQH
     query EventsConnection($first: Int) {
         eventsConnection(first: $first){
@@ -44,10 +47,44 @@ gem 'webex-events'
         }
     }
   GRAPQH
-  response = Webex::Client.query(query: query, variables: { first: 20 }, operation_name: 'EventsConnection', headers: {})
+  response = Webex::Client.query(
+          query: query,
+          variables: { first: 20 },
+          operation_name: 'EventsConnection',
+          headers: { 'Idempotency-Key' => SecureRandom.uuid }
+  )
   event = response.body["data"]["eventsConnection"]["edges"][0]
 ```
-TODO:
+
+For non 200 status codes, an exception is raised for every status code such as `Webex::ServerError` for server errors. 
+For the flow-control these exceptions should be handled like the following. This is an example for `429` status code.
+For the full list please refer to [this](https://github.com/SocioEvents/webex-events-ruby-sdk/blob/main/lib/webex/request.rb#L39) file.
+```ruby
+begin
+  Webex::Client.query(
+          query: query,
+          variables: { first: 20 },
+          operation_name: 'EventsConnection',
+          headers: { 'Idempotency-Key' => SecureRandom.uuid }
+  )  
+rescue DailyQuotaIsReachedError
+  # Do something here
+rescue SecondBasedQuotaIsReachedError => err
+  sleep_time = err.response.headers['X-Secondly-Retry-After'].to_i # In milliseconds
+  sleep sleep_time / 1000.to_f
+  retry 
+end
+```
+By default, `Webex::Client.query` is retriable under the hood. It retries the request several times for the following exceptions.
+```
+RequestTimeoutError => 408
+SecondBasedQuotaIsReachedError => 429
+BadGatewayError => 502
+ServiceUnavailableError => 503
+GatewayTimeoutError => 504
+```
+## Idempotency
+TODO
 
 ## Development
 
