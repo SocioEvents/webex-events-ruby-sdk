@@ -12,31 +12,31 @@ module Webex
     end
   end
 
-  class ResourceNotFound < Error
+  class ResourceNotFoundError < Error
   end
 
-  class AuthenticationRequired < Error
+  class AuthenticationRequiredError < Error
   end
 
-  class AuthorizationFailed < Error
+  class AuthorizationFailedError < Error
   end
 
   class UnprocessableEntityError < Error
   end
 
-  class InvalidAccessToken < Error
+  class InvalidAccessTokenError < Error
   end
 
-  class AccessTokenIsExpired < Error
+  class AccessTokenIsExpiredError < Error
   end
 
-  class DailyQuotaIsReached < Error
+  class DailyQuotaIsReachedError < Error
   end
 
-  class SecondBasedQuotaIsReached < Error
+  class SecondBasedQuotaIsReachedError < Error
   end
 
-  class QueryComplexityIsTooHigh < Error
+  class QueryComplexityIsTooHighError < Error
   end
 
   class RequestTimeoutError < Error

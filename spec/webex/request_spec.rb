@@ -83,7 +83,7 @@ RSpec.describe Webex::Request do
           operation_name: operation_name,
           headers: { 'Idempotency-Key' => idempotency_key }
         ).execute
-      end.to raise_error(Webex::InvalidAccessToken)
+      end.to raise_error(Webex::InvalidAccessTokenError)
       expect(stub).to have_been_requested
     end
   end
@@ -107,7 +107,7 @@ RSpec.describe Webex::Request do
           operation_name: operation_name,
           headers: { 'Idempotency-Key' => idempotency_key }
         ).execute
-      end.to raise_error(Webex::AccessTokenIsExpired)
+      end.to raise_error(Webex::AccessTokenIsExpiredError)
       expect(stub).to have_been_requested
     end
   end

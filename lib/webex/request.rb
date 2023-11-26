@@ -40,34 +40,34 @@ module Webex
       when 400
         case response.body.dig('extensions', 'code')
         when 'INVALID_TOKEN'
-          raise InvalidAccessToken.new(response)
+          raise InvalidAccessTokenError.new(response)
         when 'TOKEN_IS_EXPIRED'
-          raise AccessTokenIsExpired.new(response)
+          raise AccessTokenIsExpiredError.new(response)
         else
           raise BadRequestError.new(response)
         end
       when 401
-        raise AuthenticationRequired.new(response)
+        raise AuthenticationRequiredError.new(response)
       when 403
-        raise AuthorizationFailed.new(response)
+        raise AuthorizationFailedError.new(response)
       when 404
-        raise ResourceNotFound.new(response)
+        raise ResourceNotFoundError.new(response)
       when 408
         raise RequestTimeoutError.new(response)
       when 413
-        raise QueryComplexityIsTooHigh.new(response)
+        raise QueryComplexityIsTooHighError.new(response)
       when 422
         raise UnprocessableEntityError.new(response)
       when 429
         extensions = response.body['extensions']
         if extensions['dailyAvailableCost'].to_i < 1
-          raise DailyQuotaIsReached.new(response)
+          raise DailyQuotaIsReachedError.new(response)
         end
 
         if extensions['availableCost'].to_i < 1
-          raise SecondBasedQuotaIsReached.new(response)
+          raise SecondBasedQuotaIsReachedError.new(response)
         else
-          raise QueryComplexityIsTooHigh.new response
+          raise QueryComplexityIsTooHighError.new response
         end
       when 500
         raise ServerError.new(response)
