@@ -1,0 +1,12 @@
+module Webex
+  class Error
+    attr_reader code: String
+    attr_reader response: Response
+
+    @message: String
+  end
+
+  class ServerError
+    def reference_id: () -> String
+  end
+end

@@ -1,0 +1,14 @@
+module Webex
+  class Response
+    attr_reader status: Integer
+    attr_reader body: String
+    attr_reader headers: Hash[String, void]
+
+    @status: Integer
+    @body: String
+    @success: boolish
+    @headers: Hash[String, void]
+
+    def success?: -> boolish
+  end
+end

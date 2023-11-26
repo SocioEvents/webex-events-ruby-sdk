@@ -8,12 +8,14 @@ module Webex
     # @param [Hash] headers
     # @return [Hash]
     def self.query(query:, operation_name:, variables: {}, headers: {})
-      Request.new(
-        query: query,
-        variables: variables,
-        operation_name: operation_name,
-        headers: headers
-      ).execute
+      Retriable.retriable do
+        Request.new(
+          query: query,
+          variables: variables,
+          operation_name: operation_name,
+          headers: headers
+        ).execute
+      end
     end
   end
 end

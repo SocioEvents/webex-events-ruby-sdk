@@ -12,3 +12,10 @@ Style/FrozenStringLiteralComment:
   Enabled: true
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: space
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+

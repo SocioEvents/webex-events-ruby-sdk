@@ -7,5 +7,7 @@ module Webex
 
       def self.configure: (Proc) -> void
     end
+
+    def self.ruby_version: -> String
   end
 end
