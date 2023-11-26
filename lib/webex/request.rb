@@ -72,7 +72,7 @@ module Webex
       when 500
         raise ServerError.new(response)
       when 502
-        raise BasGatewayError.new(response)
+        raise BadGatewayError.new(response)
       when 503
         raise ServiceUnavailableError.new(response)
       when 504

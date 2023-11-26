@@ -42,7 +42,7 @@ module Webex
   class RequestTimeoutError < Error
   end
 
-  class BasGatewayError < Error
+  class BadGatewayError < Error
   end
 
   class ServiceUnavailableError < Error
