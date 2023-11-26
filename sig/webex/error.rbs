@@ -1,9 +1,9 @@
 module Webex
   class Error
     attr_reader code: String
+    attr_reader extensions: Hash[String, void]
     attr_reader response: Response
-
-    @message: String
+    attr_reader status: Integer
   end
 
   class ServerError

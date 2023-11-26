@@ -189,10 +189,9 @@ RSpec.describe Webex::Request do
 
   context 'when status code is 408' do
     it 'raises RequestTimeoutError exception' do
-      data = {}.to_json
       stub = stub_request(:post, url)
                .with(body: @body.to_json, headers: headers)
-               .to_return(body: data, status: 408)
+               .to_return(body: '', status: 408)
 
       expect do
         do_request
@@ -307,10 +306,9 @@ RSpec.describe Webex::Request do
 
   context 'when status code is 502' do
     it 'raises BadGatewayError exception' do
-      data = {}.to_json
       stub = stub_request(:post, url)
                .with(body: @body.to_json, headers: headers)
-               .to_return(body: data, status: 502)
+               .to_return(body: '', status: 502)
 
       expect do
         do_request
@@ -321,10 +319,9 @@ RSpec.describe Webex::Request do
 
   context 'when status code is 503' do
     it 'raises ServiceUnavailableError exception' do
-      data = {}.to_json
       stub = stub_request(:post, url)
                .with(body: @body.to_json, headers: headers)
-               .to_return(body: data, status: 503)
+               .to_return(body: '', status: 503)
 
       expect do
         do_request
@@ -335,10 +332,9 @@ RSpec.describe Webex::Request do
 
   context 'when status code is 504' do
     it 'raises GatewayTimeoutError exception' do
-      data = {}.to_json
       stub = stub_request(:post, url)
                .with(body: @body.to_json, headers: headers)
-               .to_return(body: data, status: 504)
+               .to_return(body: '', status: 504)
 
       expect do
         do_request
@@ -349,10 +345,9 @@ RSpec.describe Webex::Request do
 
   context 'when status code is 599' do
     it 'raises ServerError exception' do
-      data = {}.to_json
       stub = stub_request(:post, url)
                .with(body: @body.to_json, headers: headers)
-               .to_return(body: data, status: 599)
+               .to_return(body: '', status: 599)
 
       expect do
         do_request
@@ -363,10 +358,9 @@ RSpec.describe Webex::Request do
 
   context 'when status code is 499' do
     it 'raises ClientError exception' do
-      data = {}.to_json
       stub = stub_request(:post, url)
                .with(body: @body.to_json, headers: headers)
-               .to_return(body: data, status: 499)
+               .to_return(body: '', status: 499)
 
       expect do
         do_request

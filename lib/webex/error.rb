@@ -2,13 +2,15 @@
 
 module Webex
   class Error < StandardError
-    attr_reader :response, :code
+    attr_reader :response, :code, :extensions, :status
 
     # @param [Webex::Response] response
     def initialize(response)
       @response = response
+      @status = response.status
       @message = response.body['message']
-      @code = response.body.dig('extensions', 'code')
+      @extensions = response.body['extensions']
+      @code = @extensions&.[]('code')
     end
   end
 
@@ -62,7 +64,7 @@ module Webex
 
   class ServerError < Error
     def reference_id
-      response.body['referenceId']
+      extensions['referenceId']
     end
   end
 end

@@ -109,5 +109,9 @@ module Webex
         'https://public-api.sandbox-api.socio.events'
       end
     end
+
+    def self.execute(query:, variables:, operation_name:, headers: {})
+      new(query: query, variables: variables, operation_name: operation_name, headers: headers).execute
+    end
   end
 end

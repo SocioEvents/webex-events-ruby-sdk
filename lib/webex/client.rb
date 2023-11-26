@@ -2,19 +2,27 @@
 
 module Webex
   class Client
+    EXCEPTIONS = [
+      RequestTimeoutError,
+      SecondBasedQuotaIsReachedError,
+      BadGatewayError,
+      ServiceUnavailableError,
+      GatewayTimeoutError
+    ].freeze
+
     # @param [String] query GraphQL query
     # @param [Hash] variables Query variables
     # @param [String] operation_name GraphQL Operation Name such as TracksConnection
     # @param [Hash] headers
-    # @return [Hash]
+    # @return [Webex::Response]
     def self.query(query:, operation_name:, variables: {}, headers: {})
-      Retriable.retriable do
-        Request.new(
+      Retriable.retriable(on: EXCEPTIONS, tries: 5, intervals: [0.5, 0.8, 1.5, 2, 2.5]) do
+        Request.execute(
           query: query,
           variables: variables,
           operation_name: operation_name,
           headers: headers
-        ).execute
+        )
       end
     end
   end

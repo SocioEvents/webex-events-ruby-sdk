@@ -1,5 +1,8 @@
 module Webex
   class Response
+    attr_reader url: String
+    attr_reader request_body: String
+    attr_reader request_headers: Hash[String, void]
     attr_reader status: Integer
     attr_reader body: String
     attr_reader headers: Hash[String, void]
