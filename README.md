@@ -56,7 +56,7 @@ gem 'webex-events'
   event = response.body["data"]["eventsConnection"]["edges"][0]
 ```
 
-For non 200 status codes, an exception is raised for every status code such as `Webex::ServerError` for server errors. 
+For non 200 status codes, an exception is raised for every status code such as `Webex::Errors::ServerError` for server errors. 
 For the flow-control these exceptions should be handled like the following. This is an example for `429` status code.
 For the full list please refer to [this](https://github.com/SocioEvents/webex-events-ruby-sdk/blob/main/lib/webex/request.rb#L39) file.
 ```ruby
