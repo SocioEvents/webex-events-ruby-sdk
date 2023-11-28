@@ -40,47 +40,47 @@ module Webex
       when 400
         case response.body.dig('extensions', 'code')
         when 'INVALID_TOKEN'
-          raise InvalidAccessTokenError.new(response)
+          raise Errors::InvalidAccessTokenError.new(response)
         when 'TOKEN_IS_EXPIRED'
-          raise AccessTokenIsExpiredError.new(response)
+          raise Errors::AccessTokenIsExpiredError.new(response)
         else
-          raise BadRequestError.new(response)
+          raise Errors::BadRequestError.new(response)
         end
       when 401
-        raise AuthenticationRequiredError.new(response)
+        raise Errors::AuthenticationRequiredError.new(response)
       when 403
-        raise AuthorizationFailedError.new(response)
+        raise Errors::AuthorizationFailedError.new(response)
       when 404
-        raise ResourceNotFoundError.new(response)
+        raise Errors::ResourceNotFoundError.new(response)
       when 408
-        raise RequestTimeoutError.new(response)
+        raise Errors::RequestTimeoutError.new(response)
       when 413
-        raise QueryComplexityIsTooHighError.new(response)
+        raise Errors::QueryComplexityIsTooHighError.new(response)
       when 422
-        raise UnprocessableEntityError.new(response)
+        raise Errors::UnprocessableEntityError.new(response)
       when 429
         extensions = response.body['extensions']
         if extensions['dailyAvailableCost'].to_i < 1
-          raise DailyQuotaIsReachedError.new(response)
+          raise Errors::DailyQuotaIsReachedError.new(response)
         end
 
         if extensions['availableCost'].to_i < 1
-          raise SecondBasedQuotaIsReachedError.new(response)
+          raise Errors::SecondBasedQuotaIsReachedError.new(response)
         end
       when 500
-        raise ServerError.new(response)
+        raise Errors::ServerError.new(response)
       when 502
-        raise BadGatewayError.new(response)
+        raise Errors::BadGatewayError.new(response)
       when 503
-        raise ServiceUnavailableError.new(response)
+        raise Errors::ServiceUnavailableError.new(response)
       when 504
-        raise GatewayTimeoutError.new(response)
+        raise Errors::GatewayTimeoutError.new(response)
       when ClientErrorStatuses
-        raise ClientError.new(response)
+        raise Errors::ClientError.new(response)
       when ServerErrorStatuses
-        raise ServerError.new(response)
+        raise Errors::ServerError.new(response)
       when nil
-        raise NilStatusError.new(response)
+        raise Errors::NilStatusError.new(response)
       end
     end
 

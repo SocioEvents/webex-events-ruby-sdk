@@ -3,11 +3,11 @@
 module Webex
   class Client
     EXCEPTIONS = [
-      RequestTimeoutError,
-      SecondBasedQuotaIsReachedError,
-      BadGatewayError,
-      ServiceUnavailableError,
-      GatewayTimeoutError
+      Webex::Errors::RequestTimeoutError,
+      Webex::Errors::SecondBasedQuotaIsReachedError,
+      Webex::Errors::BadGatewayError,
+      Webex::Errors::ServiceUnavailableError,
+      Webex::Errors::GatewayTimeoutError
     ].freeze
 
     # @param [String] query GraphQL query

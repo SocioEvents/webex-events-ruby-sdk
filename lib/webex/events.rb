@@ -5,7 +5,7 @@ require 'retriable'
 require 'json'
 
 require_relative 'events/version'
-require_relative 'error'
+require_relative 'errors/error'
 require_relative 'response'
 require_relative 'request'
 require_relative 'client'
