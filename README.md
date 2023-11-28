@@ -51,7 +51,7 @@ gem 'webex-events'
           query: query,
           variables: { first: 20 },
           operation_name: 'EventsConnection',
-          headers: { 'Idempotency-Key' => SecureRandom.uuid }
+          headers: {}
   )
   event = response.body["data"]["eventsConnection"]["edges"][0]
 ```
@@ -65,11 +65,11 @@ begin
           query: query,
           variables: { first: 20 },
           operation_name: 'EventsConnection',
-          headers: { 'Idempotency-Key' => SecureRandom.uuid }
+          headers: {}
   )  
-rescue DailyQuotaIsReachedError
+rescue Webex::Errors::DailyQuotaIsReachedError
   # Do something here
-rescue SecondBasedQuotaIsReachedError => err
+rescue Webex::Errors::SecondBasedQuotaIsReachedError => err
   sleep_time = err.response.headers['X-Secondly-Retry-After'].to_i # In milliseconds
   sleep sleep_time / 1000.to_f
   retry 
@@ -77,11 +77,11 @@ end
 ```
 By default, `Webex::Client.query` is retriable under the hood. It retries the request several times for the following exceptions.
 ```
-RequestTimeoutError => 408
-SecondBasedQuotaIsReachedError => 429
-BadGatewayError => 502
-ServiceUnavailableError => 503
-GatewayTimeoutError => 504
+Webex::Errors::RequestTimeoutError => 408
+Webex::Errors::SecondBasedQuotaIsReachedError => 429
+Webex::Errors::BadGatewayError => 502
+Webex::Errors::ServiceUnavailableError => 503
+Webex::Errors::GatewayTimeoutError => 504
 ```
 ## Idempotency
 TODO
