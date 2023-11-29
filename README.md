@@ -117,7 +117,7 @@ GRAPHQL
 begin
   Webex::Client.query(
     query: query,
-    variables: { input: { trackId: 1, eventId: 1 } },
+    variables: { input: { ids: [1,2,3], eventId: 1 } },
     operation_name: 'TrackDelete',
     headers: { 'Idempotency-Key' => SecureRandom.uuid }
   )
