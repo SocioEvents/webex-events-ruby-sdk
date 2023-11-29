@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'retriable', '~> 3.1'
 
   spec.add_development_dependency 'rubocop-rspec'
-  spec.add_development_dependency 'rbs'
+  spec.add_development_dependency 'rbs' if RUBY_ENGINE == 'ruby'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'standard'
