@@ -3,11 +3,17 @@ module Webex
     VERSION: String
 
     class Config
+      self.@max_retries: Integer
+
       attr_accessor self.access_token: String
 
       def self.configure: (Proc) -> void
-    end
 
-    def self.ruby_version: -> String
+      def self.max_retries: -> Integer
+
+      def self.max_retries=: (Integer) -> Integer
+
+      def self.ruby_version: -> String
+    end
   end
 end

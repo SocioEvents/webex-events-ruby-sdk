@@ -25,6 +25,7 @@ gem 'webex-events'
 ```ruby
   Webex::Events::Config.configure do |config|
     config.access_token = '<access_token>' # sk_live_ab34... or sk_test_cda1...
+    config.max_retries = 3 # Default is 5. Do not set it if you want the default configuration.
   end
 ```
 

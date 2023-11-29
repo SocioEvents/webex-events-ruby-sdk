@@ -19,6 +19,17 @@ module Webex
         def configure(&bloc)
           bloc.yield self
         end
+
+        def max_retries
+          @max_retries ||= 5
+        end
+
+        def max_retries=(retries)
+          if retries < 0
+            raise 'max_retries must be greater than or equal 0, %s is given' % retries
+          end
+          @max_retries = retries
+        end
       end
     end
 

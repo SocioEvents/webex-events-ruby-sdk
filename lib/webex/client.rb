@@ -17,7 +17,7 @@ module Webex
     # @param [Hash] headers
     # @return [Webex::Response]
     def self.query(query:, operation_name:, variables: {}, headers: {})
-      Retriable.retriable(on: EXCEPTIONS, tries: 5, intervals: [0.5, 0.8, 1.5, 2, 2.5]) do
+      Retriable.retriable(on: EXCEPTIONS, tries: Webex::Events::Config.max_retries) do
         Request.execute(
           query: query,
           variables: variables,

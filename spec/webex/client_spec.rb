@@ -10,12 +10,14 @@ RSpec.describe Webex::Client do
   it 'does retrying' do
     expect(Webex::Request)
       .to receive(:execute)
-      .exactly(6).times
+      .exactly(5).times
       .and_raise(Webex::Errors::SecondBasedQuotaIsReachedError.new(mock_response))
 
     expect do
       described_class.query(query: 'query', variables: {}, operation_name: 'TracksConnection')
-    end.to raise_error(Webex::Errors::SecondBasedQuotaIsReachedError)
+    end.to raise_error do |error|
+      expect(error).to be_a(Webex::Errors::SecondBasedQuotaIsReachedError)
+    end
   end
 
   it 'fails instantly' do
