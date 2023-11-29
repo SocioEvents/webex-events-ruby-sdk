@@ -9,7 +9,7 @@ RSpec.describe Webex::Client do
 
   it 'does retrying' do
     expect(Webex::Request)
-      .to have_received(:execute)
+      .to receive(:execute)
       .exactly(5).times
       .and_raise(Webex::Errors::SecondBasedQuotaIsReachedError.new(mock_response))
 
@@ -22,7 +22,7 @@ RSpec.describe Webex::Client do
 
   it 'fails instantly' do
     expect(Webex::Request)
-      .to have_received(:execute)
+      .to receive(:execute)
       .once
       .and_raise(StandardError)
 

@@ -22,4 +22,6 @@ RSpec/InstanceVariable:
   Enabled: false
 RSpec/VerifiedDoubles:
   Enabled: false
+RSpec/MessageSpies:
+  EnforcedStyle: receive
 
