@@ -3,15 +3,13 @@
 
 TODO: 
 
-## Requirements
-Ruby >= 2.7
+Requirements
+-----------------
 
-JRuby latest
+- MRI 2.7+, JRuby 9.3+ or TruffleRuby 23+
 
-TruffleRuby latest
-
-OpenSSL
-## Installation
+Installation
+-----------------
 
 Via command line:
 
@@ -31,7 +29,9 @@ In your Gemfile:
 gem 'webex-events'
 ```
 
-## Configuration
+Configuration
+-----------------
+
 ```ruby
   Webex::Events::Config.configure do |config|
     config.access_token = '<access_token>' # sk_live_ab34... or sk_test_cda1...
@@ -39,7 +39,9 @@ gem 'webex-events'
   end
 ```
 
-## Usage
+Usage
+-----------------
+
 ```ruby
   query = <<-GRAPQH
     query EventsConnection($first: Int) {
@@ -95,7 +97,8 @@ Webex::Errors::BadGatewayError => 502
 Webex::Errors::ServiceUnavailableError => 503
 Webex::Errors::GatewayTimeoutError => 504
 ```
-## Idempotency
+Idempotency
+-----------------
 The API supports idempotency for safely retrying requests without accidentally performing the same operation twice. 
 When doing a mutation request, use an idempotency key. If a connection error occurs, you can repeat 
 the request without risk of creating a second object or performing the update twice.
@@ -127,13 +130,15 @@ rescue Webex::Errors::ConflictError # Conflict errors are retriable, but to guar
 end
 ```
 
-## Development
+Development
+-----------------
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`.
 
-## Contributing
+Contributing
+-----------------
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/SocioEvents/webex-events-ruby-sdk. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/SocioEvents/webex-events-ruby-sdk/blob/main/CODE_OF_CONDUCT.md).
 
@@ -151,11 +156,14 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/SocioE
 * [Squash related commits together][5].
 * Open a [pull request][4] that relates to *only* one subject with a clear title
   and description in grammatically correct, complete sentences.
-## License
+
+License
+-----------------
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-## Code of Conduct
+Code of Conduct
+-----------------
 
 Everyone interacting in the Webex Events API project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/SocioEvents/webex-events-ruby-sdk/blob/main/CODE_OF_CONDUCT.md).
 
