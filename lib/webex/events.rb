@@ -3,6 +3,7 @@
 require 'faraday'
 require 'retriable'
 require 'json'
+require 'securerandom'
 
 require_relative 'events/version'
 require_relative 'errors/error'
