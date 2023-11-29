@@ -1,4 +1,4 @@
-[![Webex Events](https://github.com/SocioEvents/webex-events-ruby-sdk/actions/workflows/gem-push.yml/badge.svg)](https://github.com/SocioEvents/backend-attendee/actions/workflows/development.yaml)
+[![Webex Events](https://github.com/SocioEvents/webex-events-ruby-sdk/actions/workflows/gem-push.yml/badge.svg)](https://github.com/SocioEvents/webex-events-ruby-sdk/actions)
 # Webex Events Api
 
 TODO: 
