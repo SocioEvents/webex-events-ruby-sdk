@@ -4,6 +4,7 @@ module Webex
   class Request
     ClientErrorStatuses = (400...500).freeze
     ServerErrorStatuses = (500...600).freeze
+    UUID_REGEX_VALIDATOR = /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/i
 
     def initialize(query:, variables:, operation_name:, headers: {})
       @query = query
@@ -12,6 +13,13 @@ module Webex
       @headers = headers
       @access_token = Webex::Events::Config.access_token
       @connection = self.class.connection
+      validate_idempotency_key
+    end
+
+    def validate_idempotency_key
+      unless @headers['Idempotency-Key'].nil?
+        raise 'Idempotency-Key must be UUID format' unless UUID_REGEX_VALIDATOR.match?(@headers['Idempotency-Key'])
+      end
     end
 
     # Executes GraphQL query

@@ -381,4 +381,30 @@ RSpec.describe Webex::Request do
       expect(stub).to have_been_requested
     end
   end
+
+  context 'with idempotency key' do
+    context 'when invalid idempotency key' do
+      it 'raises exception' do
+        expect do
+          described_class.new(
+            query: gql_query,
+            variables: variables,
+            operation_name: operation_name,
+            headers: { 'Idempotency-Key' => 'Invalid key' }
+          ).execute
+        end.to raise_error(RuntimeError, /Idempotency-Key must be UUID format/i)
+      end
+    end
+
+    context 'when valid idempotency key' do
+      it 'does the request' do
+        stub = stub_request(:post, url)
+                 .with(body: @body.to_json, headers: headers)
+                 .to_return(body: {}.to_json, status: 200)
+
+        do_request
+        expect(stub).to have_been_requested
+      end
+    end
+  end
 end
