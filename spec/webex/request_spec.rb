@@ -200,6 +200,19 @@ RSpec.describe Webex::Request do
     end
   end
 
+  context 'when status code is 409' do
+    it 'raises ConflictError exception' do
+      stub = stub_request(:post, url)
+               .with(body: @body.to_json, headers: headers)
+               .to_return(body: '', status: 409)
+
+      expect do
+        do_request
+      end.to raise_error(Webex::Errors::ConflictError)
+      expect(stub).to have_been_requested
+    end
+  end
+
   context 'when status code is 413' do
     it 'raises QueryComplexityIsTooHighError exception' do
       data = {

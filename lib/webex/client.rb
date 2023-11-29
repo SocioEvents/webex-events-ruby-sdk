@@ -7,7 +7,8 @@ module Webex
       Webex::Errors::SecondBasedQuotaIsReachedError,
       Webex::Errors::BadGatewayError,
       Webex::Errors::ServiceUnavailableError,
-      Webex::Errors::GatewayTimeoutError
+      Webex::Errors::GatewayTimeoutError,
+      Webex::Errors::ConflictError
     ].freeze
 
     # @param [String] query GraphQL query

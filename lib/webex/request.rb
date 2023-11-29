@@ -54,6 +54,8 @@ module Webex
         raise Errors::ResourceNotFoundError.new(response)
       when 408
         raise Errors::RequestTimeoutError.new(response)
+      when 409
+        raise Errors::ConflictError.new(response)
       when 413
         raise Errors::QueryComplexityIsTooHighError.new(response)
       when 422

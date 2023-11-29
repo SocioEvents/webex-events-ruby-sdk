@@ -18,6 +18,9 @@ module Webex
     class ResourceNotFoundError < Error
     end
 
+    class ConflictError < Error
+    end
+
     class AuthenticationRequiredError < Error
     end
 

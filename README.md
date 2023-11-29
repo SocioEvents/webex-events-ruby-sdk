@@ -78,6 +78,7 @@ end
 By default, `Webex::Client.query` is retriable under the hood. It retries the request several times for the following exceptions.
 ```
 Webex::Errors::RequestTimeoutError => 408
+Webex::Errors::ConflictError => 409
 Webex::Errors::SecondBasedQuotaIsReachedError => 429
 Webex::Errors::BadGatewayError => 502
 Webex::Errors::ServiceUnavailableError => 503
