@@ -110,7 +110,7 @@ begin
     operation_name: 'TrackDelete',
     headers: { 'Idempotency-Key' => SecureRandom.uuid }
   )
-rescue Webex::Errors::ConflictError # Conflict errors are retriable, bu to guarantee it you can handle the exception again.
+rescue Webex::Errors::ConflictError # Conflict errors are retriable, but to guarantee it you can handle the exception again.
   sleep 0.2
   retry
 end
