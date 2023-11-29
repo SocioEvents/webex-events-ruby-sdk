@@ -2,6 +2,15 @@
 # Webex Events Api
 
 TODO: 
+
+## Requirements
+Ruby >= 2.7
+
+JRuby latest
+
+TruffleRuby latest
+
+OpenSSL
 ## Installation
 
 Via command line:
