@@ -85,7 +85,36 @@ Webex::Errors::ServiceUnavailableError => 503
 Webex::Errors::GatewayTimeoutError => 504
 ```
 ## Idempotency
-TODO
+The API supports idempotency for safely retrying requests without accidentally performing the same operation twice. 
+When doing a mutation request, use an idempotency key. If a connection error occurs, you can repeat 
+the request without risk of creating a second object or performing the update twice.
+
+To perform mutation request, you must add a header which contains the idempotency key such as 
+`Idempotency-Key: <your key>`. The SDK does not produce an Idempotency Key on behalf of you if it is missed.
+The SDK also validates the key on runtime, if it is not valid UUID token it will raise an exception. Here is an example
+like the following:
+
+```ruby
+query = <<-GRAPHQL
+          mutation TrackDelete($input: TrackDeleteInput!) {
+            trackDelete(input: $input) {
+              success
+            }
+          }
+GRAPHQL
+
+begin
+  Webex::Client.query(
+    query: query,
+    variables: { input: { trackId: 1, eventId: 1 } },
+    operation_name: 'TrackDelete',
+    headers: { 'Idempotency-Key' => SecureRandom.uuid }
+  )
+rescue Webex::Errors::ConflictError # Conflict errors are retriable, bu to guarantee it you can handle the exception again.
+  sleep 0.2
+  retry
+end
+```
 
 ## Development
 
