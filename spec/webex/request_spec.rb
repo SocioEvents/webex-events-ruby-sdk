@@ -203,8 +203,8 @@ RSpec.describe Webex::Request do
   context 'when status code is 409' do
     it 'raises ConflictError exception' do
       stub = stub_request(:post, url)
-               .with(body: @body.to_json, headers: headers)
-               .to_return(body: '', status: 409)
+        .with(body: @body.to_json, headers: headers)
+        .to_return(body: '', status: 409)
 
       expect do
         do_request
@@ -399,8 +399,8 @@ RSpec.describe Webex::Request do
     context 'when valid idempotency key' do
       it 'does the request' do
         stub = stub_request(:post, url)
-                 .with(body: @body.to_json, headers: headers)
-                 .to_return(body: {}.to_json, status: 200)
+          .with(body: @body.to_json, headers: headers)
+          .to_return(body: {}.to_json, status: 200)
 
         do_request
         expect(stub).to have_been_requested

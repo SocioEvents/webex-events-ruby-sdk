@@ -2,8 +2,8 @@
 
 module Webex
   class Request
-    ClientErrorStatuses = (400...500).freeze
-    ServerErrorStatuses = (500...600).freeze
+    CLIENT_ERROR_STATUSES = (400...500).freeze
+    SERVER_ERROR_STATUSES = (500...600).freeze
     UUID_REGEX_VALIDATOR = /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/i
 
     def initialize(query:, variables:, operation_name:, headers: {})
@@ -85,9 +85,9 @@ module Webex
         raise Errors::ServiceUnavailableError.new(response)
       when 504
         raise Errors::GatewayTimeoutError.new(response)
-      when ClientErrorStatuses
+      when CLIENT_ERROR_STATUSES
         raise Errors::ClientError.new(response)
-      when ServerErrorStatuses
+      when SERVER_ERROR_STATUSES
         raise Errors::ServerError.new(response)
       when nil
         raise Errors::NilStatusError.new(response)

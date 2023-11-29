@@ -1,7 +1,7 @@
 module Webex
   class Request
-    ClientErrorStatuses: Range[Integer]
-    ServerErrorStatuses: Range[Integer]
+    CLIENT_ERROR_STATUSES: Range[Integer]
+    SERVER_ERROR_STATUSES: Range[Integer]
     UUID_REGEX_VALIDATOR: Regexp
 
     @headers: Hash[String, String]

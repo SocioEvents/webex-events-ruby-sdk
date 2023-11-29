@@ -18,4 +18,8 @@ RSpec/MultipleExpectations:
   Enabled: false
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+RSpec/InstanceVariable:
+  Enabled: false
+RSpec/VerifiedDoubles:
+  Enabled: false
 
