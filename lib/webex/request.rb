@@ -114,9 +114,9 @@ module Webex
 
     def self.url
       if Webex::Events::Config.access_token.match?(/\Ask_live_.+/)
-        'https://public-api.api.socio.events'
+        'https://public.api.socio.events'
       else
-        'https://public-api.sandbox-api.socio.events'
+        'https://public.sandbox-api.socio.events'
       end
     end
 
