@@ -42,7 +42,12 @@ jobs:
       - name: Run RuboCop
         run: |
           bundle exec rubocop
-      - name: Run tests
+      - name: Run tests with RBS
+        if: matrix.ruby == '2.7' || matrix.ruby == '3.0' || matrix.ruby == '3.1' || matrix.ruby == '3.2' || matrix.ruby == 'head'
+        run: |
+          RBS_TEST_TARGET="Webex::*" RUBYOPT="-rrbs/test/setup" bundle exec rspec --force-color
+      - name: Run tests without RBS
+        if: matrix.ruby == 'jruby' || matrix.ruby == 'truffleruby'
         run: |
           bundle exec rspec
     # - name: Publish to RubyGems
