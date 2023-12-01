@@ -1,4 +1,4 @@
-[![Webex Events](https://github.com/SocioEvents/webex-events-ruby-sdk/actions/workflows/gem-push.yml/badge.svg)](https://github.com/SocioEvents/webex-events-ruby-sdk/actions)
+[![Webex Events](https://github.com/SocioEvents/webex-events-ruby-sdk/actions/workflows/gem-test.yml/badge.svg)](https://github.com/SocioEvents/webex-events-ruby-sdk/actions)
 # Webex Events Api
 
 Webex Events provides a range of additional SDKs to accelerate your development process.
