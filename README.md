@@ -1,7 +1,9 @@
 [![Webex Events](https://github.com/SocioEvents/webex-events-ruby-sdk/actions/workflows/gem-push.yml/badge.svg)](https://github.com/SocioEvents/webex-events-ruby-sdk/actions)
 # Webex Events Api
 
-TODO: 
+Webex Events provides a range of additional SDKs to accelerate your development process.
+They allow a standardized way for developers to interact with and leverage the features and functionalities. 
+Pre-built code modules will help access the APIs with your private keys, simplifying data gathering and update flows.
 
 Requirements
 -----------------
