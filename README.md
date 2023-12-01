@@ -73,6 +73,18 @@ Usage
   event = response.body["data"]["eventsConnection"]["edges"][0]
 ```
 
+If the request is successful, `Webex::Client.query` will return `Webex::Request` object which has the following methods.
+
+| Method            | Type      |
+|-------------------|-----------|
+| `status`          | `Integer` |
+| `headers`         | `Hash`    |
+| `body`            | `Hash`    |
+| `request_headers` | `Hash`    |
+| `request_body`    | `Hash`    |
+| `url`             | `String`  |
+
+
 For non 200 status codes, an exception is raised for every status code such as `Webex::Errors::ServerError` for server errors. 
 For the flow-control these exceptions should be handled like the following. This is an example for `429` status code.
 For the full list please refer to [this](https://github.com/SocioEvents/webex-events-ruby-sdk/blob/main/lib/webex/request.rb#L39) file.
