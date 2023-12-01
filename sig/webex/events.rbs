@@ -12,8 +12,10 @@ module Webex
       def self.max_retries: -> Integer
 
       def self.max_retries=: (Integer) -> Integer
-
-      def self.ruby_version: -> String
     end
+
+    def self.ruby_version: -> String
+
+    def self.user_agent: -> String
   end
 end
