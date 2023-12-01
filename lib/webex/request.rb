@@ -39,6 +39,7 @@ module Webex
         request.headers['X-Sdk-Name'] = 'Ruby SDK'
         request.headers['X-Sdk-Version'] = Webex::Events::VERSION
         request.headers['X-Sdk-Lang-Version'] = Webex::Events.ruby_version
+        request.headers['User-Agent'] = Webex::Events.user_agent
       end
 
       response = Webex::Response.new(response)

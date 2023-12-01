@@ -44,5 +44,11 @@ module Webex
         RUBY_DESCRIPTION
       end
     end
+
+    def self.user_agent
+      os = RbConfig::CONFIG['host_os']
+      hostname = Socket.gethostname
+      "Webex Ruby SDK(v#{Webex::Events::VERSION}) - OS(#{os}) - hostname(#{hostname}) - Ruby Version(#{ruby_version})"
+    end
   end
 end
