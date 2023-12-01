@@ -1,9 +1,6 @@
 name: CI
 
 on:
-  release:
-    types:
-      - published
   push:
     branches: [ "main" ]
   pull_request:
@@ -11,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build + Publish
+    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -53,14 +50,3 @@ jobs:
         if: matrix.version == 'jruby' || matrix.version == 'truffleruby'
         run: |
           bundle exec rspec
-      - name: Publish to RubyGems
-        run: |
-          mkdir -p $HOME/.gem
-          touch $HOME/.gem/credentials
-          chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-          gem build *.gemspec
-          gem push *.gem
-        if: github.event_name == 'release'
-        env:
-          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
