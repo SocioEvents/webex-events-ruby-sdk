@@ -130,6 +130,12 @@ rescue Webex::Errors::ConflictError # Conflict errors are retriable, but to guar
 end
 ```
 
+Telemetry Data Collection
+-----------------
+Webex Events collects telemetry data, including hostname, operating system, language and SDK version, via API requests. 
+This information allows us to improve our services and track any usage-related faults/issues. We handle all data with 
+the utmost respect for your privacy. For more details, please refer to the Privacy Policy at https://socio.events/privacy-policy
+
 Development
 -----------------
 
