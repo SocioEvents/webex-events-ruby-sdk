@@ -25,7 +25,7 @@ gem install webex-events
 In your ruby script:
 
 ```ruby
-require 'webex-events'
+require 'webex/events'
 ```
 
 In your Gemfile:
