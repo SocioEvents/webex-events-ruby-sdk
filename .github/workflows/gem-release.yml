@@ -4,13 +4,15 @@ on:
     types: [published]
 
 jobs:
+  tests:
+    uses: ./.github/workflows/gem-test.yml
   release-gems:
     name: Release gems to rubygems.org
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
-
+    needs: [tests]
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
