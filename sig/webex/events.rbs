@@ -4,6 +4,9 @@ module Webex
 
     class Config
       self.@max_retries: Integer
+      self.@open_timeout: Integer
+      self.@timeout: Integer
+      self.@write_timeout: Integer
 
       attr_accessor self.access_token: String
 
@@ -12,6 +15,18 @@ module Webex
       def self.max_retries: -> Integer
 
       def self.max_retries=: (Integer) -> Integer
+
+      def self.open_timeout: -> Integer
+
+      def self.open_timeout=: (Integer) -> Integer
+
+      def self.timeout: -> Integer
+
+      def self.timeout=: (Integer) -> Integer
+
+      def self.write_timeout: -> Integer
+
+      def self.write_timeout=: (Integer) -> Integer
     end
 
     def self.assert_access_token!: -> void

@@ -103,8 +103,9 @@ module Webex
         faraday.request :url_encoded
         faraday.adapter Faraday.default_adapter
 
-        faraday.options.timeout = 30 # seconds
-        faraday.options.open_timeout = 10 # seconds
+        faraday.options.timeout = Webex::Events::Config.timeout
+        faraday.options.open_timeout = Webex::Events::Config.open_timeout
+        faraday.options.write_timeout = Webex::Events::Config.write_timeout
 
         # force SSL/TLS
         faraday.ssl[:verify] = true
