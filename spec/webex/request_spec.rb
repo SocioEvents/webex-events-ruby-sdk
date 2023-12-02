@@ -19,7 +19,7 @@ RSpec.describe Webex::Request do
   let(:variables) { { first: 20 } }
   let(:operation_name) { 'EventsConnection' }
   let(:idempotency_key) { SecureRandom.uuid }
-  let(:url) { described_class.url + '/graphql' }
+  let(:url) { Webex::Events.endpoint_url + '/graphql' }
   let(:headers) do
     {
       'Content-Type' => 'application/json',
