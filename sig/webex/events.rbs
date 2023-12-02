@@ -14,7 +14,7 @@ module Webex
       def self.max_retries=: (Integer) -> Integer
     end
 
-    def self.assert_access_token!!: -> void
+    def self.assert_access_token!: -> void
 
     def self.endpoint_url: -> String
 
