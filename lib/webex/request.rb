@@ -98,7 +98,7 @@ module Webex
     # Creates a Faraday connection instance.
     # @return [Faraday::Connection]
     def self.connection
-      Thread.current[:webex_events_connection] ||= Faraday.new(url: url) do |faraday|
+      Thread.current[:webex_events_connection] ||= Faraday.new(url: Webex::Events.endpoint_url) do |faraday|
         # faraday.use Faraday::Response::RaiseError
         faraday.request :url_encoded
         faraday.adapter Faraday.default_adapter
@@ -110,14 +110,6 @@ module Webex
         faraday.ssl[:verify] = true
         faraday.ssl[:verify_hostname] = true
         faraday.ssl[:verify_mode] = OpenSSL::SSL::VERIFY_PEER
-      end
-    end
-
-    def self.url
-      if Webex::Events::Config.access_token.match?(/\Ask_live_.+/)
-        'https://public.api.socio.events'
-      else
-        'https://public.sandbox-api.socio.events'
       end
     end
 

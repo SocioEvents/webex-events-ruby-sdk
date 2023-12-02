@@ -17,6 +17,8 @@ module Webex
     # @param [Hash] headers
     # @return [Webex::Response]
     def self.query(query:, operation_name:, variables: {}, headers: {})
+      Webex::Events.assert_access_token!
+
       Retriable.retriable(on: EXCEPTIONS, tries: Webex::Events::Config.max_retries) do
         Request.execute(
           query: query,

@@ -26,12 +26,35 @@ module Webex
         end
 
         def max_retries=(retries)
-          if retries < 0
+          if Integer(retries) < 0
             raise 'max_retries must be greater than or equal 0, %s is given' % retries
           end
           @max_retries = retries
         end
       end
+    end
+
+    def self.endpoint_url
+      if live_token?
+        'https://public.api.socio.events'
+      else
+        'https://public.sandbox-api.socio.events'
+      end
+    end
+
+    def self.live_token?
+      assert_access_token!
+      /\Ask_live_.+/.match?(Webex::Events::Config.access_token)
+    end
+
+    def self.sandbox_token?
+      assert_access_token!
+      !live_token?
+    end
+
+    def self.assert_access_token!
+      return unless Events::Config.access_token.nil?
+      raise 'Access Token is not present. Please set your access token to use the SDK.'
     end
 
     def self.ruby_version
