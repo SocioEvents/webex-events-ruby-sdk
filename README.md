@@ -1,3 +1,4 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.txt)
 [![Webex Events](https://github.com/SocioEvents/webex-events-ruby-sdk/actions/workflows/gem-test.yml/badge.svg)](https://github.com/SocioEvents/webex-events-ruby-sdk/actions)
 
 ⚠️ This library has not been released yet. 
