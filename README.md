@@ -3,7 +3,7 @@
 
 ⚠️ This library has not been released yet. 
 
-![Webex EVENTS](webex-events-logo-white.svg)
+[![Webex EVENTS](webex-events-logo-white.svg 'Webex Events')](https://socio.events)
 
 # Webex Events Api
 
