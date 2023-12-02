@@ -81,14 +81,16 @@ Usage
 
 If the request is successful, `Webex::Client.query` will return `Webex::Request` object which has the following methods.
 
-| Method            | Type      |
-|-------------------|-----------|
-| `status`          | `Integer` |
-| `headers`         | `Hash`    |
-| `body`            | `Hash`    |
-| `request_headers` | `Hash`    |
-| `request_body`    | `Hash`    |
-| `url`             | `String`  |
+| Method             | Type      |
+|--------------------|-----------|
+| `status`           | `Integer` |
+| `headers`          | `Hash`    |
+| `body`             | `Hash`    |
+| `request_headers`  | `Hash`    |
+| `request_body`     | `Hash`    |
+| `url`              | `String`  |
+| `retry_count`      | `Integer` |
+| `time_spent_in_ms` | `Integer` |
 
 
 For non 200 status codes, an exception is raised for every status code such as `Webex::Errors::ServerError` for server errors. 
