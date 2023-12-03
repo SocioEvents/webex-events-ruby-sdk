@@ -11,8 +11,8 @@ RSpec.describe Webex::Client do
     it 'does retrying' do
       expect(Webex::Request)
         .to receive(:execute)
-              .exactly(5).times
-              .and_raise(Webex::Errors::SecondBasedQuotaIsReachedError.new(mock_response))
+        .exactly(5).times
+        .and_raise(Webex::Errors::SecondBasedQuotaIsReachedError.new(mock_response))
 
       expect do
         described_class.query(query: 'query', variables: {}, operation_name: 'TracksConnection')
@@ -24,8 +24,8 @@ RSpec.describe Webex::Client do
     it 'fails instantly' do
       expect(Webex::Request)
         .to receive(:execute)
-              .once
-              .and_raise(StandardError)
+        .once
+        .and_raise(StandardError)
 
       expect do
         described_class.query(query: 'query', variables: {}, operation_name: 'TracksConnection')
@@ -81,12 +81,12 @@ RSpec.describe Webex::Client do
             }
           }
         }.to_json
-        stub = stub_request(:post, url).
-          with(
+        stub = stub_request(:post, url)
+          .with(
             body: @body.to_json,
             headers: headers
-          ).
-          to_return(status: 200, body: data)
+          )
+          .to_return(status: 200, body: data)
 
         response = described_class.query(
           query: gql_query,
@@ -97,7 +97,7 @@ RSpec.describe Webex::Client do
         expect(response.body.to_json).to eql(data)
         expect(response).to be_success
         expect(response.time_spent_in_ms).to be > 0
-        expect(response.retry_count).to eql(0)
+        expect(response.retry_count).to be(0)
         expect(stub).to have_been_requested
       end
     end
@@ -115,12 +115,12 @@ RSpec.describe Webex::Client do
             }
           }
         }.to_json
-        success_stub = stub_request(:post, url).
-          with(
+        success_stub = stub_request(:post, url)
+          .with(
             body: @body.to_json,
             headers: headers
-          ).
-          to_return(status: 200, body: data)
+          )
+          .to_return(status: 200, body: data)
 
         response = described_class.query(
           query: gql_query,
@@ -131,11 +131,10 @@ RSpec.describe Webex::Client do
         expect(response.body.to_json).to eql(data)
         expect(response).to be_success
         expect(response.time_spent_in_ms).to be > 0
-        expect(response.retry_count).to eql(1)
+        expect(response.retry_count).to be(1)
 
         expect(success_stub).to have_been_requested
       end
     end
   end
 end
-
