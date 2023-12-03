@@ -1,7 +1,13 @@
 module Webex
   class Client
-    EXCEPTIONS: Array
+    EXCEPTIONS: Array[Class]
 
-    def self.query: (query: String, variables: Hash[void, void], operation_name: String) -> Hash[String, void]
+    # Commented this because ruby RBS does not have capability to handle exceptions.
+    # def self.query: (
+    #     query: String,
+    #     variables: Hash[void, void],
+    #     operation_name: String,
+    #     headers: Hash[String, untyped]
+    #   ) -> untyped
   end
 end

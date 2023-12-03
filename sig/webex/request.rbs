@@ -14,13 +14,13 @@ module Webex
 
     def self.connection: -> Faraday::Connection
 
-    def self.execute: -> Response
+    def self.execute: (query: String, variables: Hash[void, void], operation_name: String, headers: Hash[String, untyped]) -> Webex::Response
 
     def self.url: -> String
 
-    def initialize: (query: String, variables: Hash[void, void], operation_name: String, headers: Hash[String, String]) -> void
+    def initialize: (query: String, variables: Hash[void, void], operation_name: String, headers: Hash[String, untyped]) -> void
 
-    def execute: () -> Response
+    def execute: () -> Webex::Response
 
     def validate_idempotency_key: -> void
 
