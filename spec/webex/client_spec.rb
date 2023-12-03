@@ -68,7 +68,7 @@ RSpec.describe Webex::Client do
       @body = {
         query: gql_query,
         variables: variables,
-        operation_name: operation_name
+        operationName: operation_name
       }
     end
 

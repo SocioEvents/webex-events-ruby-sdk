@@ -30,7 +30,7 @@ module Webex
         request.body = {
           query: @query,
           variables: @variables,
-          operation_name: @operation_name
+          operationName: @operation_name
         }.to_json
 
         request.headers.merge!(@headers)
