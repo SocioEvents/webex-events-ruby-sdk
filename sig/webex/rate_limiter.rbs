@@ -1,0 +1,41 @@
+module Webex
+  class RateLimiter
+    @headers: Hash[String, String]
+
+    @secondly_retry_after: Integer
+
+    @daily_retry_after: Integer
+
+    @used_daily_based_cost: Integer
+
+    @daily_based_cost_threshold: Integer
+
+    @used_second_based_cost: Integer
+
+    @second_based_cost_threshold: Integer
+
+    attr_reader headers: Hash[String, String]
+
+    attr_reader used_second_based_cost: Integer
+
+    attr_reader second_based_cost_threshold: Integer
+
+    attr_reader used_daily_based_cost: Integer
+
+    attr_reader daily_based_cost_threshold: Integer
+
+    attr_reader daily_retry_after: Integer
+
+    attr_reader secondly_retry_after: Integer
+
+    def initialize: (untyped headers) -> void
+
+    def parse_secondly_retry_after: () -> (untyped | nil)
+
+    def parse_daily_retry_after: () -> (untyped | nil)
+
+    def parse_daily_based_cost: () -> (untyped | nil)
+
+    def parse_second_based_cost: () -> (untyped | nil)
+  end
+end

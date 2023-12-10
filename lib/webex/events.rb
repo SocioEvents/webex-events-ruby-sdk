@@ -10,6 +10,7 @@ require_relative 'errors/error'
 require_relative 'response'
 require_relative 'request'
 require_relative 'client'
+require_relative 'rate_limiter'
 
 module Webex
   module Events

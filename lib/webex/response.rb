@@ -4,7 +4,7 @@ module Webex
   class Response
     attr_reader :status, :body, :headers
     attr_reader :request_headers, :request_body, :url
-    attr_accessor :retry_count, :time_spent_in_ms
+    attr_accessor :retry_count, :time_spent_in_ms, :rate_limiter
 
     def initialize(faraday_response)
       @status = faraday_response.status
@@ -18,6 +18,7 @@ module Webex
       @request_headers = faraday_response.env[:request_headers].to_h
       @request_body = faraday_response.env[:request_body]
       @url = faraday_response.env[:url]
+      @rate_limiter = RateLimiter.new(headers)
     end
 
     def success?

@@ -1,5 +1,6 @@
 module Webex
   class Response
+    attr_accessor rate_limiter: RateLimiter
     attr_accessor retry_count: Integer
     attr_accessor time_spent_in_ms: Integer
     attr_reader url: String
