@@ -19,10 +19,15 @@ module Webex
     def self.query(query:, operation_name:, variables: {}, headers: {})
       Webex::Events.assert_access_token!
 
+      logger = Events::Config.logger
+      logger.info("Begin to HTTP request to #{Webex::Events.endpoint_url}...")
       retries = -1
       start_time = Process.clock_gettime(Process::CLOCK_REALTIME, :millisecond)
       response = Retriable.retriable(on: EXCEPTIONS, tries: Webex::Events::Config.max_retries) do
         retries += 1
+        if retries > 0
+          logger.info("Retrying the request. Retry count: #{retries}")
+        end
         Request.execute(
           query: query,
           variables: variables,
@@ -34,6 +39,7 @@ module Webex
       end_time = Process.clock_gettime(Process::CLOCK_REALTIME, :millisecond)
       response.retry_count = retries
       response.time_spent_in_ms = end_time - start_time
+      logger.info("The HTTP request is finished. The request took #{response.time_spent_in_ms} ms.")
       response
     end
   end

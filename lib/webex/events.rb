@@ -4,6 +4,7 @@ require 'faraday'
 require 'retriable'
 require 'json'
 require 'securerandom'
+require 'logger'
 
 require_relative 'events/version'
 require_relative 'errors/error'
@@ -16,7 +17,7 @@ module Webex
   module Events
     class Config
       class << self
-        attr_accessor :access_token
+        attr_accessor :access_token, :logger
 
         def configure(&bloc)
           bloc.yield self
@@ -64,6 +65,11 @@ module Webex
             raise 'max_retries must be greater than or equal to 0, %s is given' % retries
           end
           @max_retries = retries
+        end
+
+        def logger
+          return @logger if @logger
+          @logger = Logger.new('/dev/null')
         end
       end
     end

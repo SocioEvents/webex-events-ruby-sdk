@@ -49,6 +49,7 @@ Configuration
     config.timeout = 30 # Default is 30 seconds
     config.open_timeout = 10 # Default is 10 seconds
     config.write_timeout = 60 # Default is 60 seconds
+    config.logger = Logger.new($stdout, level: Logger::DEBUG) # By default logger is off.
   end
 ```
 

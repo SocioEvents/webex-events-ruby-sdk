@@ -45,6 +45,7 @@ module Webex
       response = Webex::Response.new(response)
       return response if response.success?
 
+      Events::Config.logger.error("Request failed. Returned status is #{response.status}. Server response is #{response.body}")
       case response.status
       when 400
         case response.body.dig('extensions', 'code')

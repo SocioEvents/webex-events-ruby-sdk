@@ -10,6 +10,8 @@ module Webex
 
       attr_accessor self.access_token: String
 
+      attr_accessor self.logger: Logger
+
       def self.configure: (Proc) -> void
 
       def self.max_retries: -> Integer
