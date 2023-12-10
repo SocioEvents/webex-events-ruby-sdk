@@ -17,7 +17,8 @@ module Webex
   module Events
     class Config
       class << self
-        attr_accessor :access_token, :logger
+        attr_accessor :access_token
+        attr_writer :logger
 
         def configure(&bloc)
           bloc.yield self
