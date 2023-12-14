@@ -6,6 +6,7 @@ module Webex
     attr_reader :request_headers, :request_body, :url
     attr_accessor :retry_count, :time_spent_in_ms, :rate_limiter
 
+    # @param [Faraday::Response] faraday_response
     def initialize(faraday_response)
       @status = faraday_response.status
       @body = begin

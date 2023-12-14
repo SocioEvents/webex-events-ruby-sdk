@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Webex
   module Helpers
     module_function
@@ -50,6 +52,106 @@ module Webex
       os = RbConfig::CONFIG['host_os']
       hostname = Socket.gethostname
       @user_agent = "Webex Ruby SDK(v#{Webex::Events::VERSION}) - OS(#{os}) - hostname(#{hostname}) - Ruby Version(#{ruby_version})"
+    end
+
+    def introspection_query
+      return @introspection_query if @introspection_query
+      @introspection_query = <<-QUERY
+          query IntrospectionQuery {
+            __schema {
+             s
+              queryType { name }
+              mutationType { name }
+              subscriptionType { name }
+              types {
+                ...FullType
+              }
+              directives {
+                name
+                description
+                locations
+               s
+                args {
+                  ...InputValue
+                }
+              }
+            }
+          }
+          fragment FullType on __Type {
+            kind
+            name
+            description
+           s
+           s
+            fields(includeDeprecated: true) {
+              name
+              description
+              args {
+                ...InputValue
+              }
+              type {
+                ...TypeRef
+              }
+              isDeprecated
+              deprecationReason
+            }
+            inputFields {
+              ...InputValue
+            }
+            interfaces {
+              ...TypeRef
+            }
+            enumValues(includeDeprecated: true) {
+              name
+              description
+              isDeprecated
+              deprecationReason
+            }
+            possibleTypes {
+              ...TypeRef
+            }
+          }
+          fragment InputValue on __InputValue {
+            name
+            description
+            type { ...TypeRef }
+            defaultValue
+           s
+           s
+          }
+          fragment TypeRef on __Type {
+            kind
+            name
+            ofType {
+              kind
+              name
+              ofType {
+                kind
+                name
+                ofType {
+                  kind
+                  name
+                  ofType {
+                    kind
+                    name
+                    ofType {
+                      kind
+                      name
+                      ofType {
+                        kind
+                        name
+                        ofType {
+                          kind
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      QUERY
     end
   end
 end

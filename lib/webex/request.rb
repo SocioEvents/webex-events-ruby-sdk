@@ -5,6 +5,10 @@ module Webex
     CLIENT_ERROR_STATUSES = (400...500).freeze
     SERVER_ERROR_STATUSES = (500...600).freeze
 
+    # @param [String] query
+    # @param [Hash] variables
+    # @param [String] operation_name
+    # @param [Hash] headers
     def initialize(query:, variables:, operation_name:, headers: {})
       @query = query
       @variables = variables
@@ -16,6 +20,7 @@ module Webex
     end
 
     # Executes GraphQL query
+    # @raise Webex::Errors::Error
     # @return [Webex::Response]
     def execute
       response = @connection.post do |request|

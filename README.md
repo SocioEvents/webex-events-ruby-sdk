@@ -126,6 +126,13 @@ Webex::Errors::BadGatewayError => 502
 Webex::Errors::ServiceUnavailableError => 503
 Webex::Errors::GatewayTimeoutError => 504
 ```
+
+For Introspection
+-----------------
+```
+Webex::Client.do_introspection_query
+```
+
 Idempotency
 -----------------
 The API supports idempotency for safely retrying requests without accidentally performing the same operation twice. 

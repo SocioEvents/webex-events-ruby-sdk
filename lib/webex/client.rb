@@ -11,8 +11,13 @@ module Webex
       Webex::Errors::ConflictError
     ].freeze
 
+    # @param [String] query GraphQL query
+    # @param [String] operation_name GraphQL Operation Name such as TracksConnection
+    # @return [Webex::Response]
     def self.do_introspection_query
+      query(query: Helpers.introspection_query, operation_name: 'IntrospectionQuery')
     end
+
     # @param [String] query GraphQL query
     # @param [Hash] variables Query variables
     # @param [String] operation_name GraphQL Operation Name such as TracksConnection
