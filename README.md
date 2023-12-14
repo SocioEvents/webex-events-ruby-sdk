@@ -5,7 +5,7 @@
 
 [![Webex EVENTS](webex-events-logo-white.svg 'Webex Events')](https://socio.events)
 
-# Webex Events Api
+# Webex Events Api Ruby SDK
 
 Webex Events provides a range of additional SDKs to accelerate your development process.
 They allow a standardized way for developers to interact with and leverage the features and functionalities. 
