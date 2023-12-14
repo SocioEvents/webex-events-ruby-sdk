@@ -1,0 +1,21 @@
+module Webex
+  module Helpers
+    UUID_REGEX_VALIDATOR: ::Regexp
+
+    @user_agent: String
+
+    def self?.validate_idempotency_key: (String key) -> (untyped | nil | nil)
+
+    def self?.endpoint_url: () -> ("https://public.api.socio.events" | "https://public.sandbox-api.socio.events")
+
+    def self?.live_token?: () -> boolish
+
+    def self?.sandbox_token?: () -> boolish
+
+    def self?.assert_access_token!: () -> untyped
+
+    def self?.ruby_version: () -> string
+
+    def self?.user_agent: () -> ::String
+  end
+end

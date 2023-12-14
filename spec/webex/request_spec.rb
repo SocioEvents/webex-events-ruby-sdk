@@ -19,14 +19,14 @@ RSpec.describe Webex::Request do
   let(:variables) { { first: 20 } }
   let(:operation_name) { 'EventsConnection' }
   let(:idempotency_key) { SecureRandom.uuid }
-  let(:url) { Webex::Events.endpoint_url + '/graphql' }
+  let(:url) { Webex::Helpers.endpoint_url + '/graphql' }
   let(:headers) do
     {
       'Content-Type' => 'application/json',
       'Authorization' => 'Bearer %s' % Webex::Events::Config.access_token,
       'X-Sdk-Name' => 'Ruby SDK',
       'X-Sdk-version' => Webex::Events::VERSION,
-      'X-Sdk-Lang-Version' => Webex::Events.ruby_version,
+      'X-Sdk-Lang-Version' => Webex::Helpers.ruby_version,
       'Idempotency-Key' => idempotency_key
     }
   end

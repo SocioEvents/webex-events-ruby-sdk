@@ -30,17 +30,5 @@ module Webex
 
       def self.write_timeout=: (Integer) -> Integer
     end
-
-    def self.assert_access_token!: -> void
-
-    def self.endpoint_url: -> String
-
-    def self.live_token?: -> boolish
-
-    def self.ruby_version: -> String
-
-    def self.sandbox_token?: -> boolish
-
-    def self.user_agent: -> String
   end
 end

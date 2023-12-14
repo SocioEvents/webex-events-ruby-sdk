@@ -11,16 +11,18 @@ module Webex
       Webex::Errors::ConflictError
     ].freeze
 
+    def self.do_introspection_query
+    end
     # @param [String] query GraphQL query
     # @param [Hash] variables Query variables
     # @param [String] operation_name GraphQL Operation Name such as TracksConnection
     # @param [Hash] headers
     # @return [Webex::Response]
     def self.query(query:, operation_name:, variables: {}, headers: {})
-      Webex::Events.assert_access_token!
+      Webex::Helpers.assert_access_token!
 
       logger = Events::Config.logger
-      logger.info("Begin to HTTP request to #{Webex::Events.endpoint_url}...")
+      logger.info("Begin to HTTP request to #{Webex::Helpers.endpoint_url}...")
       retries = -1
       start_time = Process.clock_gettime(Process::CLOCK_REALTIME, :millisecond)
       response = Retriable.retriable(on: EXCEPTIONS, tries: Webex::Events::Config.max_retries) do

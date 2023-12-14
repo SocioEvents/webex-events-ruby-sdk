@@ -12,6 +12,7 @@ require_relative 'response'
 require_relative 'request'
 require_relative 'client'
 require_relative 'rate_limiter'
+require_relative 'helpers'
 
 module Webex
   module Events
@@ -73,46 +74,6 @@ module Webex
           @logger = Logger.new('/dev/null')
         end
       end
-    end
-
-    def self.endpoint_url
-      if live_token?
-        'https://public.api.socio.events'
-      else
-        'https://public.sandbox-api.socio.events'
-      end
-    end
-
-    def self.live_token?
-      assert_access_token!
-      /\Ask_live_.+/.match?(Webex::Events::Config.access_token)
-    end
-
-    def self.sandbox_token?
-      assert_access_token!
-      !live_token?
-    end
-
-    def self.assert_access_token!
-      return unless Events::Config.access_token.nil?
-      raise 'Access Token is not present. Please set your access token to use the SDK.'
-    end
-
-    def self.ruby_version
-      case RUBY_ENGINE
-      when 'ruby'
-        "ruby-#{RUBY_VERSION}"
-      when 'jruby'
-        "jruby-#{JRUBY_VERSION}"
-      else
-        RUBY_DESCRIPTION
-      end
-    end
-
-    def self.user_agent
-      os = RbConfig::CONFIG['host_os']
-      hostname = Socket.gethostname
-      "Webex Ruby SDK(v#{Webex::Events::VERSION}) - OS(#{os}) - hostname(#{hostname}) - Ruby Version(#{ruby_version})"
     end
   end
 end

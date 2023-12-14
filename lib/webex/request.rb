@@ -4,7 +4,6 @@ module Webex
   class Request
     CLIENT_ERROR_STATUSES = (400...500).freeze
     SERVER_ERROR_STATUSES = (500...600).freeze
-    UUID_REGEX_VALIDATOR = /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/i
 
     def initialize(query:, variables:, operation_name:, headers: {})
       @query = query
@@ -13,13 +12,7 @@ module Webex
       @headers = headers
       @access_token = Webex::Events::Config.access_token
       @connection = self.class.connection
-      validate_idempotency_key
-    end
-
-    def validate_idempotency_key
-      unless @headers['Idempotency-Key'].nil?
-        raise 'Idempotency-Key must be UUID format' unless UUID_REGEX_VALIDATOR.match?(@headers['Idempotency-Key'])
-      end
+      Webex::Helpers.validate_idempotency_key(@headers['Idempotency-Key'])
     end
 
     # Executes GraphQL query
@@ -38,8 +31,8 @@ module Webex
         request.headers['Authorization'] = 'Bearer %s' % @access_token
         request.headers['X-Sdk-Name'] = 'Ruby SDK'
         request.headers['X-Sdk-Version'] = Webex::Events::VERSION
-        request.headers['X-Sdk-Lang-Version'] = Webex::Events.ruby_version
-        request.headers['User-Agent'] = Webex::Events.user_agent
+        request.headers['X-Sdk-Lang-Version'] = Webex::Helpers.ruby_version
+        request.headers['User-Agent'] = Webex::Helpers.user_agent
       end
 
       response = Webex::Response.new(response)
@@ -99,7 +92,7 @@ module Webex
     # Creates a Faraday connection instance.
     # @return [Faraday::Connection]
     def self.connection
-      Thread.current[:webex_events_connection] ||= Faraday.new(url: Webex::Events.endpoint_url) do |faraday|
+      Thread.current[:webex_events_connection] ||= Faraday.new(url: Webex::Helpers.endpoint_url) do |faraday|
         # faraday.use Faraday::Response::RaiseError
         faraday.request :url_encoded
         faraday.adapter Faraday.default_adapter

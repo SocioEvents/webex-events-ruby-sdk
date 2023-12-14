@@ -4,7 +4,7 @@ module Webex
   class RateLimiter
     attr_reader :headers, :used_second_based_cost, :second_based_cost_threshold
     attr_reader :used_daily_based_cost, :daily_based_cost_threshold
-    attr_reader :daily_retry_after, :secondly_retry_after
+    attr_reader :daily_retry_after_in_second, :secondly_retry_after_in_ms
 
     def initialize(headers)
       @headers = headers
@@ -17,13 +17,13 @@ module Webex
 
     def parse_secondly_retry_after
       if (value = headers[:HTTP_X_SECONDLY_RETRY_AFTER])
-        @secondly_retry_after = Integer(value)
+        @secondly_retry_after_in_ms = Integer(value)
       end
     end
 
     def parse_daily_retry_after
       if (value = headers[:HTTP_X_DAILY_RETRY_AFTER])
-        @daily_retry_after = Integer(value)
+        @daily_retry_after_in_second = Integer(value)
       end
     end
 

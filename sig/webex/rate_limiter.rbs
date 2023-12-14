@@ -24,9 +24,9 @@ module Webex
 
     attr_reader daily_based_cost_threshold: Integer
 
-    attr_reader daily_retry_after: Integer
+    attr_reader daily_retry_after_in_second: Integer
 
-    attr_reader secondly_retry_after: Integer
+    attr_reader secondly_retry_after_in_ms: Integer
 
     def initialize: (untyped headers) -> void
 
