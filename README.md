@@ -45,7 +45,7 @@ Configuration
     config.access_token = '<access_token>' # sk_live_ab34... or sk_test_cda1...
     
     # Please set your custom configs, if the default configuration does not meet your needs.
-    config.max_retries = 3 # Default is 5. Do not set it if you want the default configuration.
+    config.max_retries = 5 # Default is 5. Do not set it if you want the default configuration.
     config.timeout = 30 # Default is 30 seconds
     config.open_timeout = 10 # Default is 10 seconds
     config.write_timeout = 60 # Default is 60 seconds
