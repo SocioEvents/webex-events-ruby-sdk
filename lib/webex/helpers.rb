@@ -51,7 +51,6 @@ module Webex
       @introspection_query = <<-QUERY
           query IntrospectionQuery {
             __schema {
-             s
               queryType { name }
               mutationType { name }
               subscriptionType { name }
@@ -62,7 +61,6 @@ module Webex
                 name
                 description
                 locations
-               s
                 args {
                   ...InputValue
                 }
@@ -73,8 +71,6 @@ module Webex
             kind
             name
             description
-           s
-           s
             fields(includeDeprecated: true) {
               name
               description
@@ -108,8 +104,6 @@ module Webex
             description
             type { ...TypeRef }
             defaultValue
-           s
-           s
           }
           fragment TypeRef on __Type {
             kind
