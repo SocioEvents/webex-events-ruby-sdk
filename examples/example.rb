@@ -13,7 +13,7 @@ def mutation_query
   variables = {
     input: { ids: [1], eventId: 1 }
   }
-  response = Webex::Client.query(query: query, operation_name: 'TrackDelete', variables: variables, headers: { 'Idempotency-Key' => SecureRandom.uuid })
+  response = Webex::Client.query(query: query, operation_name: 'TrackDelete', variables: variables, options: { idempotency_key: SecureRandom.uuid })
   pp response
 end
 
@@ -26,7 +26,7 @@ def single_query
       }
     }
   GQL
-  response = Webex::Client.query(query: query, operation_name: 'Currency', variables: { isoCode: 'USD' }, headers: {})
+  response = Webex::Client.query(query: query, operation_name: 'Currency', variables: { isoCode: 'USD' }, options: {})
   pp response
 end
 
@@ -48,6 +48,6 @@ def get_connection
       }
   GQL
 
-  response = Webex::Client.query(query: query, operation_name: 'EventsConnection', variables: { first: 10 }, headers: {})
+  response = Webex::Client.query(query: query, operation_name: 'EventsConnection', variables: { first: 10 }, options: {})
   pp response
 end
