@@ -21,9 +21,9 @@ module Webex
     # @param [String] query GraphQL query
     # @param [Hash] variables Query variables
     # @param [String] operation_name GraphQL Operation Name such as TracksConnection
-    # @param [Hash] headers
+    # @param [Hash] options
     # @return [Webex::Response]
-    def self.query(query:, operation_name:, variables: {}, headers: {})
+    def self.query(query:, operation_name:, variables: {}, options: {})
       Webex::Helpers.assert_access_token!
 
       logger = Events::Config.logger
@@ -39,7 +39,7 @@ module Webex
           query: query,
           variables: variables,
           operation_name: operation_name,
-          headers: headers
+          options: options
         )
       end
 

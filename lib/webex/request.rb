@@ -8,15 +8,14 @@ module Webex
     # @param [String] query
     # @param [Hash] variables
     # @param [String] operation_name
-    # @param [Hash] headers
-    def initialize(query:, variables:, operation_name:, headers: {})
+    # @param [Hash] options
+    def initialize(query:, variables:, operation_name:, options: {})
       @query = query
       @variables = variables
       @operation_name = operation_name
-      @headers = headers
+      @options = options
       @access_token = Webex::Events::Config.access_token
       @connection = self.class.connection
-      Webex::Helpers.validate_idempotency_key(@headers['Idempotency-Key'])
     end
 
     # Executes GraphQL query
@@ -31,7 +30,7 @@ module Webex
           operationName: @operation_name
         }.to_json
 
-        request.headers.merge!(@headers)
+        request.headers.merge!('Idempotency-Key' => @options[:idempotency_key]) if @options[:idempotency_key]
         request.headers['Content-Type'] = 'application/json'
         request.headers['Authorization'] = 'Bearer %s' % @access_token
         request.headers['X-Sdk-Name'] = 'Ruby SDK'
@@ -113,8 +112,8 @@ module Webex
       end
     end
 
-    def self.execute(query:, variables:, operation_name:, headers: {})
-      new(query: query, variables: variables, operation_name: operation_name, headers: headers).execute
+    def self.execute(query:, variables:, operation_name:, options: {})
+      new(query: query, variables: variables, operation_name: operation_name, options: options).execute
     end
   end
 end

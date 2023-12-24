@@ -92,7 +92,7 @@ RSpec.describe Webex::Client do
           query: gql_query,
           variables: variables,
           operation_name: operation_name,
-          headers: {}
+          options: {}
         )
         expect(response.body.to_json).to eql(data)
         expect(response).to be_success
@@ -126,7 +126,7 @@ RSpec.describe Webex::Client do
           query: gql_query,
           variables: variables,
           operation_name: operation_name,
-          headers: {}
+          options: {}
         )
         expect(response.body.to_json).to eql(data)
         expect(response).to be_success

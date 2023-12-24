@@ -25,16 +25,16 @@ Via command line:
 gem install webex-events
 ```
 
-In your ruby script:
-
-```ruby
-require 'webex/events'
-```
-
 In your Gemfile:
 
 ```ruby
 gem 'webex-events'
+```
+
+In your ruby script:
+
+```ruby
+require 'webex/events'
 ```
 
 Configuration
@@ -78,7 +78,7 @@ Usage
           query: query,
           variables: { first: 20 },
           operation_name: 'EventsConnection',
-          headers: {}
+          options: {}
   )
   event = response.body["data"]["eventsConnection"]["edges"][0]
 ```
@@ -107,7 +107,7 @@ begin
           query: query,
           variables: { first: 20 },
           operation_name: 'EventsConnection',
-          headers: {}
+          options: {}
   )  
 rescue Webex::Errors::DailyQuotaIsReachedError
   # Do something here
@@ -158,7 +158,7 @@ begin
     query: query,
     variables: { input: { ids: [1,2,3], eventId: 1 } },
     operation_name: 'TrackDelete',
-    headers: { 'Idempotency-Key' => SecureRandom.uuid }
+    options: { idempotency_key: SecureRandom.uuid }
   )
 rescue Webex::Errors::ConflictError # Conflict errors are retriable, but to guarantee it you can handle the exception again.
   sleep 0.2

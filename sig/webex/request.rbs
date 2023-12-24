@@ -4,7 +4,7 @@ module Webex
     SERVER_ERROR_STATUSES: Range[Integer]
     UUID_REGEX_VALIDATOR: Regexp
 
-    @headers: Hash[String, String]
+    @options: Hash[String, String]
     @mutex: Mutex
     @query: String
     @variables: Hash[void, void]
@@ -14,11 +14,11 @@ module Webex
 
     def self.connection: -> Faraday::Connection
 
-    def self.execute: (query: String, variables: Hash[void, void], operation_name: String, headers: Hash[String, untyped]) -> Webex::Response
+    def self.execute: (query: String, variables: Hash[void, void], operation_name: String, options: Hash[String, untyped]) -> Webex::Response
 
     def self.url: -> String
 
-    def initialize: (query: String, variables: Hash[void, void], operation_name: String, headers: Hash[String, untyped]) -> void
+    def initialize: (query: String, variables: Hash[void, void], operation_name: String, options: Hash[Symbol, untyped]) -> void
 
     def execute: () -> Webex::Response
 

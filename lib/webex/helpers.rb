@@ -4,14 +4,6 @@ module Webex
   module Helpers
     module_function
 
-    UUID_REGEX_VALIDATOR = /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/i
-
-    def validate_idempotency_key(key)
-      unless key.nil?
-        raise 'Idempotency-Key must be UUID format' unless UUID_REGEX_VALIDATOR.match?(key)
-      end
-    end
-
     def endpoint_url
       if live_token?
         'https://public.api.socio.events'
