@@ -57,7 +57,7 @@ Usage
 -----------------
 
 ```ruby
-  query = <<-GRAPQH
+  query = <<-GQL
     query EventsConnection($first: Int) {
         eventsConnection(first: $first){
             edges{
@@ -73,7 +73,7 @@ Usage
             }
         }
     }
-  GRAPQH
+  GQL
   response = Webex::Client.query(
           query: query,
           variables: { first: 20 },
@@ -145,13 +145,13 @@ The SDK also validates the key on runtime, if it is not valid UUID token it will
 like the following:
 
 ```ruby
-query = <<-GRAPHQL
+query = <<-GQL
           mutation TrackDelete($input: TrackDeleteInput!) {
             trackDelete(input: $input) {
               success
             }
           }
-GRAPHQL
+GQL
 
 begin
   Webex::Client.query(
