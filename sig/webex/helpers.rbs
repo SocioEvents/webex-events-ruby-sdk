@@ -5,8 +5,6 @@ module Webex
     @introspection_query: String
     @user_agent: String
 
-    def validate_idempotency_key: (String key) -> (untyped | nil | nil)
-
     def endpoint_url: () -> ("https://public.api.socio.events" | "https://public.sandbox-api.socio.events")
 
     def live_token?: () -> boolish

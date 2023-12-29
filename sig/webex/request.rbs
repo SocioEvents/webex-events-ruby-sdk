@@ -22,7 +22,5 @@ module Webex
 
     def execute: () -> Webex::Response
 
-    def validate_idempotency_key: -> void
-
   end
 end

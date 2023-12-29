@@ -140,8 +140,7 @@ When doing a mutation request, use an idempotency key. If a connection error occ
 the request without risk of creating a second object or performing the update twice.
 
 To perform mutation request, you must add a header which contains the idempotency key such as 
-`Idempotency-Key: <your key>`. The SDK does not produce an Idempotency Key on behalf of you if it is missed.
-The SDK also validates the key on runtime, if it is not valid UUID token it will raise an exception. Here is an example
+`Idempotency-Key: <your key>`. The SDK does not produce an Idempotency Key on behalf of you if it is missed. Here is an example
 like the following:
 
 ```ruby
